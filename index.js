@@ -4,6 +4,13 @@ const axios = require("axios");
 
 const app = express();
 app.use(express.json());
+app.use(express.static('.'));
+
+// Serve index.html for root
+const fs = require('fs');
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
 
 // Payment address
 const PAY_TO = "0xDEB4f464d46B1A3CDB4A29c41C6E908378993914";
