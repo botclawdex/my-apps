@@ -10,12 +10,15 @@
     :root {
       --bg: #0a0a0f;
       --bg-card: #12121a;
+      --bg-card-hover: #1a1a25;
       --accent: #0052ff;
       --accent-glow: rgba(0, 82, 255, 0.3);
       --text: #ffffff;
       --text-muted: #8888aa;
       --border: #2a2a3a;
       --success: #00d4aa;
+      --warning: #ffaa00;
+      --danger: #ff4444;
     }
     
     body {
@@ -32,6 +35,44 @@
       padding: 0 24px;
     }
     
+    /* Header */
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 15, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+    }
+    
+    .logo span {
+      color: var(--accent);
+    }
+    
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    
+    nav a:hover {
+      color: var(--text);
+    }
+    
     /* Hero */
     .hero {
       padding: 80px 0;
@@ -45,38 +86,32 @@
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
+      width: 800px;
+      height: 800px;
       background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
       pointer-events: none;
       z-index: 0;
     }
     
-    .logo {
-      font-size: 48px;
-      margin-bottom: 16px;
-      z-index: 1;
+    .hero-content {
       position: relative;
+      z-index: 1;
     }
     
     .hero h1 {
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 800;
       margin-bottom: 16px;
       background: linear-gradient(135deg, #fff 0%, var(--text-muted) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      z-index: 1;
-      position: relative;
     }
     
     .hero p {
       font-size: 20px;
       color: var(--text-muted);
       max-width: 600px;
-      margin: 0 auto 40px;
-      z-index: 1;
-      position: relative;
+      margin: 0 auto 32px;
     }
     
     .hero .badge {
@@ -87,95 +122,135 @@
       border-radius: 24px;
       font-size: 14px;
       color: var(--success);
-      z-index: 1;
-      position: relative;
+      margin-bottom: 24px;
     }
     
-    /* Services Grid */
-    .services {
-      padding: 60px 0;
+    .hero .badge.error {
+      color: var(--danger);
     }
     
-    .section-title {
-      text-align: center;
-      margin-bottom: 48px;
+    /* Apps Grid */
+    .apps {
+      padding: 40px 0;
     }
     
-    .section-title h2 {
-      font-size: 36px;
-      margin-bottom: 12px;
-    }
-    
-    .section-title p {
-      color: var(--text-muted);
-    }
-    
-    .grid {
+    .apps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 24px;
+      margin-top: 40px;
     }
     
-    .card {
+    .app-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 32px;
       transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
     }
     
-    .card:hover {
+    .app-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .app-card:hover {
       border-color: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0, 82, 255, 0.1);
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0, 82, 255, 0.15);
     }
     
-    .card-icon {
-      font-size: 40px;
+    .app-card:hover::before {
+      opacity: 1;
+    }
+    
+    .app-icon {
+      font-size: 48px;
       margin-bottom: 16px;
     }
     
-    .card h3 {
-      font-size: 20px;
+    .app-card h3 {
+      font-size: 24px;
       margin-bottom: 8px;
     }
     
-    .card p {
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 16px;
+    .app-card .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
     }
     
-    .card .price {
-      font-size: 24px;
-      font-weight: 700;
+    .app-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    
+    .app-endpoints {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 16px;
+      font-family: 'Monaco', monospace;
+      font-size: 12px;
+    }
+    
+    .app-endpoints code {
       color: var(--success);
+      display: block;
+      margin-bottom: 4px;
     }
     
-    .card .price span {
+    .app-price {
+      margin-top: 16px;
       font-size: 14px;
       color: var(--text-muted);
-      font-weight: 400;
     }
     
-    /* Demo Section */
-    .demo {
+    .app-price span {
+      color: var(--success);
+      font-weight: 600;
+      font-size: 18px;
+    }
+    
+    /* Playground */
+    .playground {
       padding: 60px 0;
       background: var(--bg-card);
     }
     
-    .demo-box {
+    .playground-box {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 32px;
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
     }
     
-    .demo-box h3 {
-      margin-bottom: 24px;
+    .playground h2 {
       text-align: center;
+      margin-bottom: 24px;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
     
     .form-group {
@@ -184,38 +259,41 @@
     
     .form-group label {
       display: block;
-      font-size: 14px;
+      font-size: 12px;
       color: var(--text-muted);
       margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     
-    .form-group input {
+    .form-group input, .form-group select {
       width: 100%;
       padding: 14px 16px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 8px;
       color: var(--text);
-      font-size: 16px;
+      font-size: 14px;
+      font-family: 'Monaco', monospace;
       transition: border-color 0.2s;
     }
     
-    .form-group input:focus {
+    .form-group input:focus, .form-group select:focus {
       outline: none;
       border-color: var(--accent);
     }
     
     .btn {
-      width: 100%;
-      padding: 14px;
+      padding: 14px 32px;
       background: var(--accent);
       border: none;
       border-radius: 8px;
       color: white;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s;
+      width: 100%;
     }
     
     .btn:hover {
@@ -223,26 +301,22 @@
       transform: translateY(-2px);
     }
     
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    
     .result {
       margin-top: 24px;
-      padding: 16px;
+      padding: 20px;
       background: var(--bg-card);
       border-radius: 8px;
       font-family: 'Monaco', monospace;
-      font-size: 13px;
+      font-size: 12px;
       white-space: pre-wrap;
       word-break: break-all;
       display: none;
+      max-height: 300px;
+      overflow-y: auto;
     }
     
     .result.show { display: block; }
-    
-    .result.error { border-left: 3px solid #ff4444; }
+    .result.error { border-left: 3px solid var(--danger); }
     .result.success { border-left: 3px solid var(--success); }
     
     /* Stats */
@@ -252,13 +326,20 @@
     
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
       text-align: center;
     }
     
+    .stat {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    
     .stat h3 {
-      font-size: 48px;
+      font-size: 36px;
       font-weight: 800;
       color: var(--accent);
       margin-bottom: 8px;
@@ -266,22 +347,49 @@
     
     .stat p {
       color: var(--text-muted);
+      font-size: 14px;
     }
     
-    /* CTA */
-    .cta {
-      padding: 80px 0;
+    /* Wallet */
+    .wallet-section {
+      padding: 40px 0;
       text-align: center;
     }
     
-    .cta h2 {
-      font-size: 40px;
-      margin-bottom: 16px;
+    .wallet-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      margin: 0 auto;
     }
     
-    .cta p {
+    .wallet-address {
+      background: var(--bg);
+      padding: 16px;
+      border-radius: 8px;
+      font-family: 'Monaco', monospace;
+      font-size: 12px;
+      word-break: break-all;
+      margin: 16px 0;
+      color: var(--success);
+    }
+    
+    .copy-btn {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 6px;
       color: var(--text-muted);
-      margin-bottom: 32px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .copy-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
     }
     
     /* Footer */
@@ -298,80 +406,39 @@
       text-decoration: none;
     }
     
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 36px; }
-      .stats-grid { grid-template-columns: 1fr; }
+    @media (max-width: 900px) {
+      .apps-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 40px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero">
-      <div class="logo">🦞</div>
-      <h1>Clawdex API</h1>
-      <p>Monetize your agent services with x402 protocol. Other AI agents pay you in USDC for real-time data & analysis.</p>
+  <header>
+    <div class="container header-content">
+      <div class="logo">🦞 <span>Clawdex</span> API</div>
+      <nav>
+        <a href="#apps">Apps</a>
+        <a href="#playground">Playground</a>
+        <a href="#wallet">Wallet</a>
+      </nav>
+    </div>
+  </header>
+  
+  <section class="hero">
+    <div class="container hero-content">
       <div class="badge">🔴 Live on Base Mainnet</div>
-    </section>
-    
-    <section class="services">
-      <div class="section-title">
-        <h2>Services</h2>
-        <p>Built for autonomous agents to consume programmatically</p>
-      </div>
+      <h1>Monetize Your Agent</h1>
+      <p>The x402-powered API platform for autonomous AI agents. Other agents pay you in USDC for real-time data & intelligence.</p>
       
-      <div class="grid">
-        <div class="card">
-          <div class="card-icon">💰</div>
-          <h3>Token Prices</h3>
-          <p>Real-time prices from CoinGecko for any token on Base network</p>
-          <div class="price">$0.001 <span>/ request</span></div>
-        </div>
-        
-        <div class="card">
-          <div class="card-icon">📊</div>
-          <h3>Portfolio Check</h3>
-          <p>Get complete token holdings for any wallet address on Base</p>
-          <div class="price">$0.005 <span>/ request</span></div>
-        </div>
-        
-        <div class="card">
-          <div class="card-icon">🤖</div>
-          <h3>AI Analysis</h3>
-          <p>AI-powered sentiment analysis for any token contract</p>
-          <div class="price">$0.01 <span>/ request</span></div>
-        </div>
-        
-        <div class="card">
-          <div class="card-icon">🔥</div>
-          <h3>Trending</h3>
-          <p>Discover trending tokens on Base right now</p>
-          <div class="price">$0.002 <span>/ request</span></div>
-        </div>
-      </div>
-    </section>
-    
-    <section class="demo">
-      <div class="section-title">
-        <h2>Try It Free</h2>
-        <p>Test the API endpoints without payment (demo mode)</p>
-      </div>
-      
-      <div class="demo-box">
-        <h3>🔍 Search Tokens</h3>
-        <div class="form-group">
-          <label>Search query</label>
-          <input type="text" id="searchInput" placeholder="e.g. degen, aerodrome, base" value="degen">
-        </div>
-        <button class="btn" onclick="searchTokens()">Search</button>
-        <div class="result" id="searchResult"></div>
-      </div>
-    </section>
-    
-    <section class="stats">
-      <div class="stats-grid">
+      <div class="stats-grid" style="max-width: 800px; margin: 0 auto;">
         <div class="stat">
-          <h3>4</h3>
+          <h3>12+</h3>
           <p>API Endpoints</p>
+        </div>
+        <div class="stat">
+          <h3>3</h3>
+          <p>Agent Apps</p>
         </div>
         <div class="stat">
           <h3>x402</h3>
@@ -382,56 +449,229 @@
           <p>Network</p>
         </div>
       </div>
-    </section>
-    
-    <section class="cta">
-      <h2>Start Earning</h2>
-      <p>Connect your wallet. Other agents will pay you for data.</p>
-      <p style="font-family: monospace; background: var(--bg-card); padding: 12px; border-radius: 8px; display: inline-block;">
-        0xDEB4f464d46B1A3CDB4A29c41C6E908378993914
-      </p>
-    </section>
-  </div>
+    </div>
+  </section>
+  
+  <section class="apps" id="apps">
+    <div class="container">
+      <h2 style="text-align: center; font-size: 36px;">Agent Applications</h2>
+      <p style="text-align: center; color: var(--text-muted); margin-top: 12px;">Three powerful APIs for autonomous agents</p>
+      
+      <div class="apps-grid">
+        <div class="app-card" onclick="selectApp('rExchange')">
+          <div class="app-icon">💱</div>
+          <span class="tag">DEX AGGREGATOR</span>
+          <h3>rExchange</h3>
+          <p>Smart swap quotes, liquidity pools, and gas estimation. Built for trading bots.</p>
+          <div class="app-endpoints">
+            <code>GET /api/v1/dex/quote</code>
+            <code>GET /api/v1/dex/pools</code>
+            <code>GET /api/v1/dex/gas</code>
+          </div>
+          <div class="app-price">From <span>$0.005</span> / request</div>
+        </div>
+        
+        <div class="app-card" onclick="selectApp('rWatch')">
+          <div class="app-icon">👁️</div>
+          <span class="tag">ON-CHAIN MONITOR</span>
+          <h3>rWatch</h3>
+          <p>Real-time balances, transaction history, and holder analytics. Portfolio trackers love this.</p>
+          <div class="app-endpoints">
+            <code>GET /api/v1/watch/balance</code>
+            <code>GET /api/v1/watch/history</code>
+            <code>GET /api/v1/watch/token-holders</code>
+          </div>
+          <div class="app-price">From <span>$0.005</span> / request</div>
+        </div>
+        
+        <div class="app-card" onclick="selectApp('rIntelligence')">
+          <div class="app-icon">🧠</div>
+          <span class="tag">AI ANALYTICS</span>
+          <h3>rIntelligence</h3>
+          <p>Token metrics, AI analysis, trending signals, and security scores. For research bots.</p>
+          <div class="app-endpoints">
+            <code>GET /api/v1/ai/metrics</code>
+            <code>POST /api/v1/ai/analyze</code>
+            <code>GET /api/v1/ai/trending</code>
+          </div>
+          <div class="app-price">From <span>$0.01</span> / request</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="playground" id="playground">
+    <div class="container">
+      <div class="playground-box">
+        <h2>🔌 API Playground</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 24px;">Test endpoints without payment (demo mode)</p>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>Application</label>
+            <select id="appSelect" onchange="updateEndpoints()">
+              <option value="rExchange">rExchange</option>
+              <option value="rWatch">rWatch</option>
+              <option value="rIntelligence">rIntelligence</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Endpoint</label>
+            <select id="endpointSelect">
+              <option value="/api/v1/dex/gas">Gas Prices</option>
+              <option value="/api/v1/dex/pools">Pool List</option>
+              <option value="/api/v1/dex/quote">Get Quote</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row" id="paramRow">
+          <div class="form-group" id="param1Group" style="display: none;">
+            <label id="param1Label">Parameter</label>
+            <input type="text" id="param1" placeholder="value">
+          </div>
+          <div class="form-group" id="param2Group" style="display: none;">
+            <label id="param2Label">Parameter 2</label>
+            <input type="text" id="param2" placeholder="value">
+          </div>
+        </div>
+        
+        <button class="btn" onclick="makeRequest()">🚀 Execute Request</button>
+        
+        <div class="result" id="result"></div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="wallet-section" id="wallet">
+    <div class="container">
+      <div class="wallet-box">
+        <h2>💰 Payment Wallet</h2>
+        <p style="color: var(--text-muted);">Other agents pay you here via x402</p>
+        <div class="wallet-address">0xDEB4f464d46B1A3CDB4A29c41C6E908378993914</div>
+        <button class="copy-btn" onclick="copyAddress()">📋 Copy Address</button>
+      </div>
+    </div>
+  </section>
   
   <footer>
-    <p>🦞 Clawdex API — Powered by x402 on <a href="#">Base</a></p>
+    <div class="container">
+      <p>🦞 Clawdex API v2.0 — Powered by x402 on <a href="#">Base</a></p>
+    </div>
   </footer>
   
   <script>
-    async function searchTokens() {
-      const input = document.getElementById('searchInput');
-      const result = document.getElementById('searchResult');
-      const query = input.value.trim();
+    const endpoints = {
+      rExchange: [
+        { path: "/api/v1/dex/gas", params: [] },
+        { path: "/api/v1/dex/pools", params: [] },
+        { path: "/api/v1/dex/quote", params: [{name: "from", placeholder: "ETH"}, {name: "to", placeholder: "USDC"}, {name: "amount", placeholder: "1"}] }
+      ],
+      rWatch: [
+        { path: "/api/v1/watch/balance", params: [{name: "address", placeholder: "0x..."}] },
+        { path: "/api/v1/watch/history", params: [{name: "address", placeholder: "0x..."}] },
+        { path: "/api/v1/watch/token-holders", params: [{name: "token", placeholder: "0x..."}] }
+      ],
+      rIntelligence: [
+        { path: "/api/v1/ai/trending", params: [] },
+        { path: "/api/v1/ai/metrics", params: [{name: "token", placeholder: "0x..."}] },
+        { path: "/api/v1/ai/security", params: [{name: "token", placeholder: "0x..."}] }
+      ]
+    };
+    
+    function selectApp(app) {
+      document.getElementById('appSelect').value = app;
+      updateEndpoints();
+    }
+    
+    function updateEndpoints() {
+      const app = document.getElementById('appSelect').value;
+      const select = document.getElementById('endpointSelect');
+      select.innerHTML = '';
       
-      if (!query) return;
+      endpoints[app].forEach(ep => {
+        const option = document.createElement('option');
+        option.value = ep.path;
+        option.textContent = ep.path;
+        select.appendChild(option);
+      });
       
+      // Update params
+      const current = endpoints[app].find(e => e.path === select.value);
+      updateParams(current);
+    }
+    
+    function updateParams(endpoint) {
+      const p1g = document.getElementById('param1Group');
+      const p2g = document.getElementById('param2Group');
+      
+      if (endpoint.params.length === 0) {
+        p1g.style.display = 'none';
+        p2g.style.display = 'none';
+      } else if (endpoint.params.length === 1) {
+        p1g.style.display = 'block';
+        document.getElementById('param1Label').textContent = endpoint.params[0].name;
+        document.getElementById('param1').placeholder = endpoint.params[0].placeholder;
+        p2g.style.display = 'none';
+      } else {
+        p1g.style.display = 'block';
+        p2g.style.display = 'block';
+        document.getElementById('param1Label').textContent = endpoint.params[0].name;
+        document.getElementById('param1').placeholder = endpoint.params[0].placeholder;
+        document.getElementById('param2Label').textContent = endpoint.params[1].name;
+        document.getElementById('param2').placeholder = endpoint.params[1].placeholder;
+      }
+    }
+    
+    async function makeRequest() {
+      const app = document.getElementById('appSelect').value;
+      const path = document.getElementById('endpointSelect').value;
+      const param1 = document.getElementById('param1').value;
+      const param2 = document.getElementById('param2').value;
+      
+      const result = document.getElementById('result');
       result.className = 'result show';
       result.textContent = 'Loading...';
       
       try {
-        // For demo, call directly without payment
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`, {
-          headers: { 'x402': 'false' }
-        });
+        let url = path;
+        const params = new URLSearchParams();
+        
+        const endpoint = endpoints[app].find(e => e.path === path);
+        if (endpoint.params.length === 1 && param1) {
+          params.append(endpoint.params[0].name, param1);
+        } else if (endpoint.params.length === 2) {
+          if (param1) params.append(endpoint.params[0].name, param1);
+          if (param2) params.append(endpoint.params[1].name, param2);
+        }
+        
+        if (params.toString()) {
+          url += '?' + params.toString();
+        }
+        
+        const res = await fetch(url, { headers: { 'x402': 'false' } });
         const data = await res.json();
         
-        if (data.results && data.results.length > 0) {
-          result.className = 'result show success';
-          result.textContent = JSON.stringify(data.results, null, 2);
-        } else {
-          result.className = 'result show';
-          result.textContent = 'No results found';
-        }
+        result.className = 'result show success';
+        result.textContent = JSON.stringify(data, null, 2);
       } catch (e) {
         result.className = 'result show error';
         result.textContent = 'Error: ' + e.message;
       }
     }
     
-    // Check health on load
+    function copyAddress() {
+      navigator.clipboard.writeText('0xDEB4f464d46B1A3CDB4A29c41C6E908378993914');
+      alert('Address copied!');
+    }
+    
+    // Init
+    updateEndpoints();
+    
+    // Check API health
     fetch('/health')
       .then(r => r.json())
-      .then(d => console.log('API Status:', d))
+      .then(d => console.log('API:', d))
       .catch(e => console.error('API Error:', e));
   </script>
 </body>
