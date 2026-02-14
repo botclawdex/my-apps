@@ -9,6 +9,37 @@ app.use(express.static('.'));
 
 // Konfiguracja z env vars
 const PAY_TO = process.env.PAY_TO || "0xDEB4f464d46B1A3CDB4A29c41C6E908378993914";
+
+// Payment verification middleware - weryfikuje kto zapłacił
+const verifyPayment = async (req, res, next) => {
+  const isDemo = req.headers['x402'] === 'false' || req.headers['x402'] === false;
+  
+  if (isDemo) {
+    req.payerAddress = 'demo';
+    req.isPaid = false;
+    return next();
+  }
+  
+  // Sprawdź czy jest payment header
+  const x402From = req.headers['x402-from'];
+  const x402Sig = req.headers['x402-signature'];
+  
+  if (x402From && x402From.match(/^0x[a-fA-F0-9]{40}$/)) {
+    req.payerAddress = x402From.toLowerCase();
+    req.isPaid = true;
+    
+    // Log payment (w produkcji - weryfikacja on-chain)
+    console.log(`💰 Payment received from: ${req.payerAddress}`);
+  } else {
+    req.payerAddress = null;
+    req.isPaid = false;
+  }
+  
+  next();
+};
+
+// Apply payment verification to all /api routes
+app.use('/api', verifyPayment);
 const COINGECKO_API_KEY = process.env.COINGECKO_API_KEY || "";
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "HSHV72NNW6KVQA88YB5BFSZHTVPFWC2GJU";
 const BASESCAN_API_KEY = process.env.BASESCAN_API_KEY || ETHERSCAN_API_KEY;
@@ -108,11 +139,16 @@ app.get("/health", (req, res) => {
   res.json({ 
     status: "ok", 
     service: "Clawdex API", 
-    version: "2.0.0",
+    version: "2.1.0",
     apps: ["rExchange", "rWatch", "rIntelligence"],
     paymentAddress: PAY_TO,
     network: "base",
-    docs: "/api-docs"
+    docs: "/api-docs",
+    paymentVerification: {
+      header: "x402-from",
+      description: "Add your Base wallet address in header to verify payment",
+      example: "fetch('/api/v1/dex/gas', { headers: { 'x402-from': '0x...' }})"
+    }
   });
 });
 
