@@ -54,24 +54,21 @@ const BASE_TOKENS = {
 };
 
 // Payment wrapper - skip for demo mode (?demo=1)
-const payment = (endpoints) => {
-  const mw = paymentMiddleware(PAY_TO, endpoints);
-  return (req, res, next) => {
-    // Demo mode via query param
-    if (req.query.demo === '1' || req.query.demo === 'true') {
-      req.payerAddress = 'demo';
-      req.isPaid = false;
-      return next();
-    }
-    // Demo mode via header
-    if (req.headers['x402'] === 'false' || req.headers['x402'] === false) {
-      req.payerAddress = 'demo';
-      req.isPaid = false;
-      return next();
-    }
-    // Production - require payment
-    return mw(req, res, next);
-  };
+const payment = (req, res, next) => {
+  // Demo mode via query param
+  if (req.query.demo === '1' || req.query.demo === 'true') {
+    req.payerAddress = 'demo';
+    req.isPaid = false;
+    return next();
+  }
+  // Demo mode via header
+  if (req.headers['x402'] === 'false' || req.headers['x402'] === false) {
+    req.payerAddress = 'demo';
+    req.isPaid = false;
+    return next();
+  }
+  // Production - require payment via x402
+  return paymentMiddleware(PAY_TO, endpointPrices)(req, res, next);
 };
 
 // Price config for x402
