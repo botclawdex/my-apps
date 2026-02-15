@@ -53,29 +53,8 @@ const BASE_TOKENS = {
   "0xa8b1254b825d3efd1e4d67ef5801dd9e73c5b3bb": { id: "wrapped-ether", symbol: "WETH", decimals: 18 },
 };
 
-// Payment wrapper - skip for demo mode (?demo=1)
-const payment = (endpoints) => {
-  const mw = paymentMiddleware(PAY_TO, endpoints);
-  return (req, res, next) => {
-    // Demo mode via query param
-    if (req.query.demo === '1' || req.query.demo === 'true') {
-      req.payerAddress = 'demo';
-      req.isPaid = false;
-      return next();
-    }
-    // Demo mode via header
-    if (req.headers['x402'] === 'false' || req.headers['x402'] === false) {
-      req.payerAddress = 'demo';
-      req.isPaid = false;
-      return next();
-    }
-    // Production - require payment
-    return mw(req, res, next);
-  };
-};
-
-// Price config for x402
-const endpointPrices = {
+// x402 payment middleware - 3 aplikacje
+const payment = paymentMiddleware(PAY_TO, {
   // === REXCHANGE - DEX Aggregator ===
   "GET /api/v1/dex/quote": {
     price: "$0.01",
