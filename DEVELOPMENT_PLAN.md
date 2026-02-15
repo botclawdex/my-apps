@@ -81,16 +81,52 @@
 
 ---
 
+## Faza 4: Polymarket Trading Bot (NOWE!)
+
+### rPolymarket - AI Prediction Market Trader
+
+**Cel:** Trading bot dla Polymarket z dashboardem w stylu retro hacker
+
+**Tech Stack:**
+- Frontend: Next.js + Tailwind (styl bitowy retro hacker)
+- Backend: Express.js (w my-apps)
+- API: Polymarket API, Clanki API
+- AI: Analiza sentymentu via Twitter/News
+
+**Funkcje:**
+
+| Moduł | Funkcja | Endpoint |
+|-------|---------|----------|
+| 📊 Dashboard | Live prices, portfolio, PnL | `/polymarket/dashboard` |
+| 🔍 Scanner | Hot markets, volume spikes | `/polymarket/scan` |
+| 🤖 Auto-Trader | Auto-buy signals, orders | `/polymarket/trade` |
+| 📈 Signals | AI sentiment analysis | `/polymarket/signals` |
+| 💰 Portfolio | Track positions, history | `/polymarket/portfolio` |
+| ⚙️ Settings | API keys, limits, alerts | `/polymarket/settings` |
+
+**UI Theme: Bitowy Retro Hacker**
+- Green phosphor terminal aesthetic
+- Monospace fonts (JetBrains Mono, Fira Code)
+- CRT scanline effects
+- Neon green (#00ff41) accents on black
+- ASCII art headers
+- Matrix-style animations
+
+**Estymacja:** 2-3 dni dev
+
+---
+
 ## Kolejność implementacji
 
 1. ✅ Basic API (price, portfolio) - DZIAŁA
-2. 🔄 RExchange - DEX aggregator
-3. 🔄 RWatch - On-chain monitoring  
-4. 🔄 RIntelligence - AI analytics
-5. ⬜ A2A Protocol - Service discovery
-6. ⬜ Reputation System
-7. ⬜ Dashboard v2
-8. ⬜ Marketplace UI
+2. ✅ RExchange - DEX aggregator
+3. ✅ RWatch - On-chain monitoring  
+4. ✅ RIntelligence - AI analytics
+5. 🔄 Polymarket Trading Bot - NOWE
+6. ⬜ A2A Protocol - Service discovery
+7. ⬜ Reputation System
+8. ⬜ Dashboard v2
+9. ⬜ Marketplace UI
 
 ---
 
