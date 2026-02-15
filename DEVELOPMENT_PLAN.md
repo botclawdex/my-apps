@@ -102,3 +102,27 @@
 | Basescan | HSHV... | ✅ w credentials |
 | Base RPC | Coinbase | ✅ w credentials |
 
+---
+
+## Storage/DB (Faza 1.4)
+
+**Potrzebujemy bazy danych do:**
+
+- 📊 Usage analytics - kto ile używa API
+- 💰 Revenue tracking - ile zarobiliśmy
+- 🔑 API key management - zarządzanie kluczami
+- 📈 Logs - historia requestów
+
+**Opcje:**
+
+| Rozwiązanie | Cena | Poziom |
+|-------------|------|--------|
+| Vercel KV (Redis) | $0.20/GB/mc | ✅ Polecane |
+| SQLite (local) | Darmowe | Tylko local |
+| PostgreSQL (Neon) | Darmowe do 0.5GB | Dobre |
+| Redis (Upstash) | Darmowe do 1GB | ✅ Polecane |
+
+**Wybór:** Vercel KV lub Upstash Redis
+
+**TODO:** Dodać do implementacji w Faza 1
+
