@@ -81,28 +81,34 @@
 
 ---
 
-## Faza 4: Polymarket Trading Bot (NOWE!)
+## Faza 4: rPoly - Polymarket Trading Bot (ODDZIELNA APLIKACJA!)
 
-### rPolymarket - AI Prediction Market Trader
+### rPoly - AI Prediction Market Trader
 
-**Cel:** Trading bot dla Polymarket z dashboardem w stylu retro hacker
+**Cel:** Oddzielna aplikacja od Clawdex API. Samodzielny brand "rPoly"
+
+**Struktura:**
+- **rPoly** = osobna aplikacja (nie część Clawdex API)
+- Host: rpoly.[twojadomena] lub rpoly.vercel.app
+- Własny branding, własne API keys
+- Może korzystać z Clawdex API jako dependency
 
 **Tech Stack:**
 - Frontend: Next.js + Tailwind (styl bitowy retro hacker)
-- Backend: Express.js (w my-apps)
-- API: Polymarket API, Clanki API
-- AI: Analiza sentymentu via Twitter/News
+- Backend: Express.js (osobny folder lub subpath)
+- API: Polymarket API, Twitter/X API
+- AI: Sentiment analysis via Twitter/News
 
 **Funkcje:**
 
-| Moduł | Funkcja | Endpoint |
-|-------|---------|----------|
-| 📊 Dashboard | Live prices, portfolio, PnL | `/polymarket/dashboard` |
-| 🔍 Scanner | Hot markets, volume spikes | `/polymarket/scan` |
-| 🤖 Auto-Trader | Auto-buy signals, orders | `/polymarket/trade` |
-| 📈 Signals | AI sentiment analysis | `/polymarket/signals` |
-| 💰 Portfolio | Track positions, history | `/polymarket/portfolio` |
-| ⚙️ Settings | API keys, limits, alerts | `/polymarket/settings` |
+| Moduł | Funkcja |
+|-------|---------|
+| 📊 Dashboard | Live prices, portfolio, PnL |
+| 🔍 Scanner | Hot markets, volume spikes |
+| 🤖 Auto-Trader | AI signals, auto-buy |
+| 📈 Signals | Sentiment analysis |
+| 💰 Portfolio | Positions tracking |
+| ⚙️ Settings | API keys, limits, alerts |
 
 **UI Theme: Bitowy Retro Hacker**
 - Green phosphor terminal aesthetic
@@ -113,6 +119,13 @@
 - Matrix-style animations
 
 **Estymacja:** 2-3 dni dev
+
+**Do zrobienia:**
+1. Stwórz nowy folder: `rpoly/`
+2. Setup Next.js + Tailwind
+3. Backend API routes
+4. Dashboard UI
+5. Deploy na Vercel
 
 ---
 
