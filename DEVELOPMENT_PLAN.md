@@ -135,7 +135,7 @@
 2. ✅ RExchange - DEX aggregator
 3. ✅ RWatch - On-chain monitoring  
 4. ✅ RIntelligence - AI analytics
-5. 🔄 Polymarket Trading Bot - NOWE
+5. 🔄 Polymarket Trading Bot - W TRAKCIE BUDOWY
 6. ⬜ A2A Protocol - Service discovery
 7. ⬜ Reputation System
 8. ⬜ Dashboard v2
